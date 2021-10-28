@@ -33,12 +33,14 @@ func (c *TodoController) URLMapping() {
 func (c *TodoController) Post() {
 	var v models.Todo
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
+
 	if _, err := models.AddTodo(&v); err == nil {
 		c.Ctx.Output.SetStatus(201)
 		c.Data["json"] = v
 	} else {
 		c.Data["json"] = err.Error()
 	}
+
 	c.ServeJSON()
 }
 
@@ -58,6 +60,7 @@ func (c *TodoController) GetOne() {
 	} else {
 		c.Data["json"] = v
 	}
+
 	c.ServeJSON()
 }
 
@@ -74,6 +77,7 @@ func (c *TodoController) GetAll() {
 	} else {
 		c.Data["json"] = l
 	}
+
 	c.ServeJSON()
 }
 
@@ -95,6 +99,7 @@ func (c *TodoController) Put() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
+
 	c.ServeJSON()
 }
 
@@ -113,5 +118,6 @@ func (c *TodoController) Delete() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
+
 	c.ServeJSON()
 }
